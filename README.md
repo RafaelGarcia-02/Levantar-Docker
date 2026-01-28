@@ -79,20 +79,35 @@ MYSQL_PASSWORD=your_password
 DOMAIN=yourdomain.com
 ```
 
-## Proceso 
+## Proceso y comandos utiles
 
 # Instalacion de Docker 
 ![alt text](<f1-instalacion docker.png>)
 
 
-# Ver logs
-docker-compose logs -f
+# Creacion imagen ubuntu
+![alt text](<f2-imagen ubuntu creacion.png>)
 
-# Detener los servicios
-docker-compose down
+# Como ver imagenes locales
+![alt text](<f3-imagenes locales.png>)
 
-# Recrear contenedores
-docker-compose up -d --build
+# Como borrar imagenes
+![alt text](<f4-borrar imagenes.png>)
+
+# Como correr una imagen 
+![alt text](<f5-correr imagen .png>)
+
+# Informacion y borrar contenedores
+![alt text](<f-6 informacion y borrar contenedores.png>)
+
+# Correr imagenes modificando su puerto 
+![alt text](<f-7 correr imagenes con modificacion de puerto.png>)
+
+# Levantar contenedores docker 
+![alt text](<f-8 levantar contenedores docker .png>)
+
+# Prestashop funcionando 
+![alt text](<f-9 prestashop levantada.png>)
 
 ## Acceso a Servicios
 
