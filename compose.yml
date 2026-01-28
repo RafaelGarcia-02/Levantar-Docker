@@ -1,0 +1,76 @@
+services:
+  mysql:
+    image: mysql:9.1
+    container_name: mysql_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend-network
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin_panel
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+    ports:
+      - "8080:80"
+    networks:
+      - backend-network
+      - frontend-network
+
+  prestashop:
+    image: prestashop/prestashop:8
+    container_name: prestashop_app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      - DB_SERVER=mysql
+      - DB_NAME=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASS=${MYSQL_PASSWORD}
+    ports:
+      - "8081:80"
+    volumes:
+      - prestashop_data:/var/www/html
+    networks:
+      - backend-network
+      - frontend-network
+
+  https-portal:
+    image: steveltn/https-portal:1
+    container_name: https_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAINS: "${DOMAIN} -> http://prestashop"
+      STAGE: 'staging' # Cambiar a 'staging' durante pruebas para evitar bloqueos de Let's Encrypt
+    volumes:
+      - ssl_certs_data:/var/lib/https-portal
+    networks:
+      - frontend-network
+
+volumes:
+  mysql_data:
+  prestashop_data:
+  ssl_certs_data:
+
+networks:
+  backend-network:
+    driver: bridge
+  frontend-network:
+    driver: bridge
