@@ -79,11 +79,11 @@ MYSQL_PASSWORD=your_password
 DOMAIN=yourdomain.com
 ```
 
-## Comandos Útiles
+## Proceso 
 
-```bash
-# Iniciar los servicios
-docker-compose up -d
+# Instalacion de Docker 
+![alt text](<f1-instalacion docker.png>)
+
 
 # Ver logs
 docker-compose logs -f
@@ -93,7 +93,6 @@ docker-compose down
 
 # Recrear contenedores
 docker-compose up -d --build
-```
 
 ## Acceso a Servicios
 
